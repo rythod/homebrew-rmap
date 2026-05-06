@@ -3,7 +3,8 @@ cask "rmap" do
   sha256 "41301661bbcec2c9fc89b7adb7d79038cd7ce2f82ee29ccfe501b1aa56a0643d"
 
   url "https://github.com/rythod/rmap/releases/download/v#{version}/RMAP_#{version}_universal.dmg",
-      verified: "github.com/rythod/rmap/"
+      verified: "github.com/rythod/rmap/",
+      header: "Authorization: token #{ENV.fetch("HOMEBREW_GITHUB_API_TOKEN")}"
   name "RMAP"
   desc "Relational Map Analysis Protocol — RFT-derived diagramming editor"
   homepage "https://github.com/rythod/rmap"
