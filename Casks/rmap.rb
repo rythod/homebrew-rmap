@@ -9,7 +9,7 @@ cask "rmap" do
       verified: "api.github.com/repos/rythod/rmap/",
       header: [
         "Accept: application/octet-stream",
-        "Authorization: Bearer #{ENV.fetch("HOMEBREW_GITHUB_API_TOKEN")}",
+        "Authorization: Bearer #{ENV.fetch("HOMEBREW_GITHUB_API_TOKEN", "")}",
       ]
   name "RMAP"
   desc "Relational Map Analysis Protocol — RFT-derived diagramming editor"
