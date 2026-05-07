@@ -19,6 +19,16 @@ cask "rmap" do
 
   app "RMAP.app"
 
+  # The build is unsigned, so macOS quarantines it on first launch and shows
+  # the "Apple could not verify RMAP is free of malware" dialog with no
+  # "Open Anyway" button on macOS 14+. Stripping com.apple.quarantine after
+  # install tells Gatekeeper to skip verification.
+  postflight do
+    system_command "/usr/bin/xattr",
+                   args: ["-cr", "#{appdir}/RMAP.app"],
+                   sudo: false
+  end
+
   zap trash: [
     "~/Library/Application Support/com.rmap.editor",
     "~/Library/Caches/com.rmap.editor",
