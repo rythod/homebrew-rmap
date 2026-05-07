@@ -3,7 +3,7 @@ class RmapCli < Formula
   homepage "https://github.com/rythod/rmap"
   url "https://github.com/rythod/rmap.git",
       tag:      "v0.1.0",
-      revision: "82a2f53"
+      revision: "a3d7e92449ad440f5cfc38fade00409e46c80624"
   version "0.1.0"
   license "Proprietary"
 
