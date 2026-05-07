@@ -19,14 +19,27 @@ cask "rmap" do
 
   app "RMAP.app"
 
-  # The build is unsigned, so macOS quarantines it on first launch and shows
-  # the "Apple could not verify RMAP is free of malware" dialog with no
-  # "Open Anyway" button on macOS 14+. Stripping com.apple.quarantine after
-  # install tells Gatekeeper to skip verification.
+  # The release build is unsigned (no Apple Developer Program). Two macOS
+  # privacy systems intercept it on first launch:
+  #
+  #   1. Gatekeeper blocks unsigned/quarantined apps with a "could not verify
+  #      malware" dialog that has no "Open Anyway" button on macOS 14+.
+  #      Stripping com.apple.quarantine bypasses this.
+  #   2. TCC (Privacy & Security consent) needs a stable code-signing identity
+  #      to remember an "Allow" decision. The linker-only ad-hoc signature
+  #      that ships in the bundle has identifier "rmap_app-<random>", so
+  #      TCC sees each launch as a different app and re-prompts forever.
+  #      A full ad-hoc bundle re-sign produces identifier "com.rmap.editor"
+  #      (from Info.plist), binds Info.plist into the signature, and seals
+  #      resources — giving TCC a persistent identity.
   postflight do
     system_command "/usr/bin/xattr",
-                   args: ["-cr", "#{appdir}/RMAP.app"],
-                   sudo: false
+                   args:  ["-cr", "#{appdir}/RMAP.app"],
+                   sudo:  false
+    system_command "/usr/bin/codesign",
+                   args:  ["--force", "--deep", "--sign", "-",
+                           "#{appdir}/RMAP.app"],
+                   sudo:  false
   end
 
   zap trash: [
