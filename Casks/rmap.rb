@@ -1,23 +1,19 @@
 cask "rmap" do
-  version "0.1.0"
-  sha256 "41301661bbcec2c9fc89b7adb7d79038cd7ce2f82ee29ccfe501b1aa56a0643d"
+  version "0.1.1"
+  sha256 "94addd5e1ba3759258966c88ee7b7e1bea4ec4ffc75eeeb8f1922b89fc5821a1"
 
-  # Asset ID changes per release. Updated by scripts/bump-cask.sh in rythod/rmap.
-  asset_id = "413182524"
-
-  url "https://api.github.com/repos/rythod/rmap/releases/assets/#{asset_id}",
-      verified: "api.github.com/repos/rythod/rmap/",
-      header: [
-        "Accept: application/octet-stream",
-        "Authorization: Bearer #{ENV.fetch("HOMEBREW_GITHUB_API_TOKEN", "")}",
-      ]
+  url "https://github.com/rythod/homebrew-rmap/releases/download/v#{version}/RMAP_#{version}_universal.dmg"
   name "RMAP"
   desc "Relational Map Analysis Protocol — RFT-derived diagramming editor"
-  homepage "https://github.com/rythod/rmap"
+  homepage "https://github.com/rythod/homebrew-rmap"
 
   depends_on macos: ">= :catalina"
 
   app "RMAP.app"
+
+  # Symlink the CLI binary bundled inside RMAP.app onto Homebrew's bin prefix
+  # so users can run `rmap` from any new terminal with no PATH setup.
+  binary "#{appdir}/RMAP.app/Contents/Resources/rmap"
 
   # The release build is unsigned (no Apple Developer Program). Two macOS
   # privacy systems intercept it on first launch:

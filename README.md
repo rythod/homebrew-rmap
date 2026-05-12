@@ -1,18 +1,24 @@
-# homebrew-rmap
+# RMAP
 
-Private Homebrew tap for [RMAP](https://github.com/rythod/rmap).
+Relational Map Analysis Protocol — a diagramming editor derived from Relational Frame Theory for visualizing human language and cognition.
 
 ## Install
 
-One-time setup (a token is needed because the source repo is private):
+Open Terminal and paste this:
 
 ```sh
-gh auth login                                          # if you don't already have gh authenticated
-echo 'export HOMEBREW_GITHUB_API_TOKEN=$(gh auth token)' >> ~/.zshrc
-source ~/.zshrc
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/rythod/homebrew-rmap/main/install.sh)"
 ```
 
-Then:
+That's it. The installer sets up [Homebrew](https://brew.sh) (if you don't already have it), then installs the RMAP app and its `rmap` command-line tool. You'll be asked for your Mac password once during the Homebrew setup step.
+
+After it finishes:
+- Launch **RMAP** from Applications, Spotlight, or Launchpad.
+- Open a **new** Terminal window and type `rmap` to use the CLI.
+
+## Already have Homebrew?
+
+If you'd rather skip the installer script:
 
 ```sh
 brew tap rythod/rmap
@@ -24,6 +30,15 @@ brew install --cask rmap
 ```sh
 brew upgrade --cask rmap
 ```
+
+## Uninstall
+
+```sh
+brew uninstall --cask rmap
+brew untap rythod/rmap
+```
+
+Add `--zap` to the uninstall to also remove RMAP's preferences and caches.
 
 ## Auto-update (optional)
 
