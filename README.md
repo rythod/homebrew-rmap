@@ -21,8 +21,7 @@ After it finishes:
 If you'd rather skip the installer script:
 
 ```sh
-brew tap rythod/rmap
-brew install --cask rmap
+brew install --cask rythod/rmap/rmap
 ```
 
 ## Update
